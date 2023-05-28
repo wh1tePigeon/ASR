@@ -1,11 +1,11 @@
 import argparse
 from pathlib import Path
-#from nsnet2_denoiser import NSnet2Enhancer
 import nsnet2.enhance_onnx as enhance
 from hmm import transcribe_hmm
 from w import transcribe_w
 import soundfile as sf
 import librosa
+import os
 
 
 def main(args):
@@ -24,6 +24,8 @@ def main(args):
     input_sig, sr = sf.read(args.i)
 
     # check sample
+    if sr == 16000 and args.resample is True:
+        assert False, "Input audio`s samplerate is already 16000!"
     if sr != 16000 and args.resample is True:
         input_sig = librosa.resample(y=input_sig, orig_sr=sr, target_sr=16000)
         sr = 16000
@@ -32,22 +34,25 @@ def main(args):
     elif sr != 16000 and args.resample is False and args.model == "hmm":
         assert False, "Either change input file, or turn on resampling, or use another model!"
 
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+
     # denoise
     if args.den is True:
         enhancer = enhance.NSnet2Enhancer(fs=sr)
         out_sig = enhancer(input_sig, sr)
-        sf.write('denoised.wav', out_sig, sr)
-        input_path = Path('denoised.wav')
+        p = Path(script_dir, 'denoised.wav')
+        sf.write(p, out_sig, sr)
+        input_path = p
 
     # transcribe
     result = ""
     if args.lan == "eng":
-        result = transcribe_w(input_path)
+        result = transcribe_w(input_path, script_dir)
     elif args.lan == "rus":
         if args.model == "w":
-            result = transcribe_w(input_path)
+            result = transcribe_w(input_path, script_dir)
         elif args.model == "hmm":
-            result = transcribe_hmm(input_path)
+            result = transcribe_hmm(input_path, script_dir)
 
     # result
     output = open('res.txt', 'w')
