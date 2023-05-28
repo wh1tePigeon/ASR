@@ -1,4 +1,3 @@
-nsnet2-denoiser
 whisper
 soundfile
 torch
