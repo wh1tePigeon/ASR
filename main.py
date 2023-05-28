@@ -63,6 +63,18 @@ def main(args):
 
 
 if __name__ == "__main__":
+
+    def str2bool(v):
+        if isinstance(v, bool):
+            return v
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise argparse.ArgumentTypeError('Boolean value expected!')
+
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-i", type=str, help="Path to speech wav file", required=True)
@@ -70,12 +82,11 @@ if __name__ == "__main__":
     parser.add_argument("-model", type=str, help="Model for transcribing. Available models:\n"
                                                  "whisper - for english and russian;\n"
                                                  "hmm - for russian", choices=["w", "hmm"], default="w")
-    parser.add_argument("-den", type=bool, help="Enable/Disable denoiser", choices=[True, False], required=True)
-    parser.add_argument("-resample", type=bool, help="If you want to use hmm or denoise, "
+    parser.add_argument("-den", type=str2bool, help="Enable/Disable denoiser", required=True)
+    parser.add_argument("-resample", type=str2bool, help="If you want to use hmm or denoise, "
                                                      "input audio must have 16kHz samplerate. "
                                                      "Use this flag, if your audio has different samplerate. "
-                                                     "This may degrade the recognition quality."
-                        , choices=[True, False], default=False)
+                                                     "This may degrade the recognition quality." , default=False)
 
     args = parser.parse_args()
 
