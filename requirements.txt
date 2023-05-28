@@ -1,0 +1,9 @@
+nsnet2-denoiser
+whisper
+soundfile
+torch
+librosa
+pocketsphinx
+onnxruntime
+numpy
+scipy
