@@ -9,7 +9,7 @@ def transcribe_hmm(input_path, script_dir):
     path_to_dic = str(Path(script_dir, "models", "rus", "ru.dic"))
 
     result = ""
-    with wave.open(input_path.parts[-1], "rb") as w:
+    with wave.open(str(input_path), "rb") as w:
         decoder = Decoder(hmm=path_to_hmm,
                           lm=path_to_lm,
                           dict=path_to_dic,
