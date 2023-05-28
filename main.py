@@ -55,7 +55,8 @@ def main(args):
             result = transcribe_hmm(input_path, script_dir)
 
     # result
-    output = open('res.txt', 'w')
+    out_path = os.path.join(script_dir, "out.txt")
+    output = open(out_path, 'w')
     output.write(result)
     output.close()
     print(result)
