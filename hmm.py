@@ -3,10 +3,10 @@ from pathlib import Path
 import wave
 
 
-def transcribe_hmm(input_path):
-    path_to_hmm = str(Path("models", "rus", "acoustic"))
-    path_to_lm = str(Path("models", "rus", "ru.lm.bin"))
-    path_to_dic = str(Path("models", "rus", "ru.dic"))
+def transcribe_hmm(input_path, script_dir):
+    path_to_hmm = str(Path(script_dir, "models", "rus", "acoustic"))
+    path_to_lm = str(Path(script_dir, "models", "rus", "ru.lm.bin"))
+    path_to_dic = str(Path(script_dir, "models", "rus", "ru.dic"))
 
     result = ""
     with wave.open(input_path.parts[-1], "rb") as w:
