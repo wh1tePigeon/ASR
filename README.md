@@ -35,4 +35,4 @@
 `python main.py -i "audio.wav" -lan eng -model w -den true -resample false`
 
 
-Также, для быстрого старта ознакомьтесь с этим [колабом]()
+Также, для быстрого старта ознакомьтесь с этим [колабом](https://colab.research.google.com/drive/16LtRL7bIMZw7cEed1fRsXJw0zI6LnqRc?usp=sharing)
