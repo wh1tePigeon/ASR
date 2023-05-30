@@ -3,7 +3,7 @@
 ## Installation
 Клонируйте репозиторий и установите необходимые пакеты
 
-`git clone https://github.com/wh1tePigeon/Temp`
+`git clone https://github.com/wh1tePigeon/ASR`
 
 `pip install -r requirements.txt`
 
